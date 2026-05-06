@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Lite mode — disable animations and reduce visual weight for low-bandwidth users */
+.lite * {
+  animation: none !important;
+  transition: none !important;
+}
+.lite [class*="shadow-xl"],
+.lite [class*="shadow-2xl"],
+.lite [class*="shadow-lg"] {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+}
+.lite [class*="blur-"] {
+  display: none !important;
+}
+.lite [class*="animate-in"] {
+  opacity: 1 !important;
+  transform: none !important;
+}
