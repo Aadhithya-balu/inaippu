@@ -2,8 +2,16 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://69fb6ff8c0db7a8ba81b4855--inaippu.netlify.app').split(',');
+
 const app = express();
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
+    cb(new Error('Not allowed by CORS'));
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
