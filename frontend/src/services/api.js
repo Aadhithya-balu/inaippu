@@ -4,10 +4,10 @@ const api = axios.create({
   baseURL: 'https://inaippu-sr3w.onrender.com/api',
 });
 
-api.interceptors.request.use(config => {
+api.interceptors.request.use(req => {
   const token = localStorage.getItem('token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
+  if (token) req.headers.Authorization = `Bearer ${token}`;
+  return req;
 });
 
 api.interceptors.response.use(

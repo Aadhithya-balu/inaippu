@@ -78,7 +78,7 @@ const CitizenOverview = ({ stats }) => {
       </div>
 
       {/* Quick actions banner */}
-      <div className="bg-linear-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 text-white shadow-xl overflow-hidden relative">
+      <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 text-white shadow-xl overflow-hidden relative">
         <div className="relative z-10">
           <h2 className="text-xl font-bold mb-1">{t('needHelp')}</h2>
           <p className="text-blue-100 text-sm mb-4">{t('needHelpDesc')}</p>
