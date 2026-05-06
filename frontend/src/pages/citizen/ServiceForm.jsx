@@ -55,9 +55,9 @@ const ServiceForm = () => {
   // Fetch SLA for selected service type
   useEffect(() => {
     if (!formData.service_type) { setSlaInfo(null); return; }
-    api.get(`/services/sla?service_type=${encodeURIComponent(formData.service_type)}`).then(({ data }) => {
-      setSlaInfo(data?.[0] || null);
-    }).catch(() => setSlaInfo(null));
+    api.get('/admin/sla')
+      .then(({ data }) => setSlaInfo(data?.[0] || null))
+      .catch(() => setSlaInfo(null));
   }, [formData.service_type]);
 
   const set = (key, val) => {
