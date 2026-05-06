@@ -102,16 +102,27 @@ const LocationPicker = ({ onChange, required = true }) => {
 
   // Load states on mount
   useEffect(() => {
-    fetch(`${API}/location/states`)
-      .then(r => r.json())
-      .then(data => {
-        if (!Array.isArray(data) || data.length === 0) {
-          setError('No states found. Please run schema.sql in Supabase.');
-          return;
-        }
-        setStates(dedup(data));
-      })
-      .catch(() => setError('Cannot reach backend at http://localhost:5000. Start the server.'));
+    const tryFetch = (retries = 3) => {
+      fetch(`${API}/location/states`)
+        .then(r => r.json())
+        .then(data => {
+          if (!Array.isArray(data) || data.length === 0) {
+            setError('No states found. Please run schema.sql in Supabase.');
+            return;
+          }
+          setStates(dedup(data));
+          setError('');
+        })
+        .catch(() => {
+          if (retries > 0) {
+            setTimeout(() => tryFetch(retries - 1), 5000);
+            setError('Connecting to server... please wait.');
+          } else {
+            setError('Cannot reach backend. Try refreshing the page.');
+          }
+        });
+    };
+    tryFetch();
   }, []);
 
   const selectState = (id, name) => {

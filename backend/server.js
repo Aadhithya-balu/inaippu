@@ -20,6 +20,14 @@ app.get('/', (req, res) => {
   res.send('Inaippu Backend is running.');
 });
 
+// Keep-alive: ping self every 14 minutes to prevent Render free tier spin-down
+if (process.env.NODE_ENV === 'production') {
+  const SELF_URL = process.env.RENDER_EXTERNAL_URL || `https://inaippu-sr3w.onrender.com`;
+  setInterval(() => {
+    fetch(`${SELF_URL}/`).catch(() => {});
+  }, 14 * 60 * 1000);
+}
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
