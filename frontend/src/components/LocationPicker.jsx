@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, ChevronDown, Locate, Loader, X } from 'lucide-react';
 
-const API = import.meta.env.VITE_API_URL || '/api';
+const API = import.meta.env.VITE_API_URL || 'https://inaippu-sr3w.onrender.com/api';
 
 const dedup = (arr) => arr.filter((item, idx, self) =>
   idx === self.findIndex(t => t.name === item.name)
